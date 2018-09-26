@@ -1,0 +1,52 @@
+<mat-horizontal-stepper [linear]="true" #stepper="matHorizontalStepper">
+  <mat-step label="Choose Intent Form">
+    <div>
+      <button mat-raised-button color="primary" matStepperNext>Simple Intent</button>
+    </div>
+  </mat-step>
+  <mat-step [stepControl]="formGroup">
+    <form [formGroup]="formGroup" (ngSubmit)="submit()" #formIntent="ngForm" class="form-container">
+      <ng-template matStepLabel>Create New Intent</ng-template>
+      <mat-form-field>
+        <textarea matInput formControlName="formulations" placeholder="User says" required></textarea>
+        <mat-error
+          *ngIf="formGroup.get('formulations').errors && formGroup.get('formulations').errors['firstFormulationTaken']">
+          First formulation already taken
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Enter Quick Answer" formControlName="answer" required>
+      </mat-form-field>
+      <div>
+        <button type="button" mat-button matStepperNext [disabled]="!formIntent.valid">Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>User says</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div style="white-space: pre">
+          {{formGroup.value.formulations}}
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Quick Answer</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>{{formGroup.value.answer}}</mat-card-content>
+    </mat-card>
+    <div>
+      <button mat-button type="button" (click)="formIntent.ngSubmit.emit();close()">
+        <mat-icon>done</mat-icon>
+        Save
+      </button>
+      <button mat-button type="button" (click)="formIntent.ngSubmit.emit();stepper.reset()">Save and create new Intent
+      </button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>

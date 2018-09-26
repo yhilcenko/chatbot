@@ -1,0 +1,27 @@
+<mat-toolbar>
+  <span style="flex: 1 1 auto;"></span>
+  <button mat-raised-button color="primary" (click)="openDialog()">Add Intent</button>
+</mat-toolbar>
+
+<div class="mat-elevation-z8">
+  <table mat-table matSort [dataSource]="intents">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let value"> {{value.id}}</td>
+    </ng-container>
+    <ng-container matColumnDef="formulation">
+      <th mat-header-cell *matHeaderCellDef>Formulation</th>
+      <td mat-cell *matCellDef="let value">
+        <a [routerLink]="['/intents', value.id]">{{value.formulations[0]}}</a></td>
+    </ng-container>
+    <ng-container matColumnDef="answer">
+      <th mat-header-cell *matHeaderCellDef>Quick Answer</th>
+      <td mat-cell *matCellDef="let value">
+        <mat-icon>announcement</mat-icon>
+        {{value.answer}}
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="columns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns"></tr>
+  </table>
+</div>

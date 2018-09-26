@@ -1,0 +1,14 @@
+<mat-card class="example-card">
+  <mat-card-title>Intent Detail</mat-card-title>
+  <mat-card-content>
+    <h3>Quick Answer</h3>
+    {{intent?.answer}}
+    <h3>Formulations</h3>
+    <span *ngFor="let formulation of intent?.formulations">
+      {{formulation}} <br>
+    </span>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button [routerLink]="['/intents']">Back</button>
+  </mat-card-actions>
+</mat-card>
