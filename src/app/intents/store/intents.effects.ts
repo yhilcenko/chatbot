@@ -26,7 +26,7 @@ export class IntentEffects {
     .pipe(
       ofType(intentActions.GET_INTENTS),
       switchMap(() => this.service.findAll()),
-      map(heroes => new GetAllIntentsSuccess(heroes)),
+      map(intents => new GetAllIntentsSuccess(intents)),
       catchError((err) => [new GetAllIntentsError(err)]
       )
     );
@@ -37,7 +37,7 @@ export class IntentEffects {
       ofType(intentActions.GET_INTENT),
       map((action: GetIntent) => action.payload),
       switchMap(id => this.service.findById(id)),
-      map(hero => new GetIntentSuccess(hero)),
+      map(intent => new GetIntentSuccess(intent)),
       catchError((err) => [new GetIntentError(err)])
     );
 
